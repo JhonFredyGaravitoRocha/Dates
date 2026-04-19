@@ -3,21 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jhon Fredy Garavito | Data Analyst Portfolio</title>
+    <title>Jhon Fredy Garavito | Portfolio de Análisis de Datos</title>
     <style>
         :root {
-            --sidebar-width: 300px;
+            --sidebar-width: 320px;
             --primary-color: #2c3e50;
             --accent-color: #27ae60;
             --bg-color: #f4f7f6;
+            --text-main: #333;
+            --text-light: #7f8c8d;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         
         body { 
-            font-family: 'Segoe UI', sans-serif; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             background-color: var(--bg-color);
             display: flex;
+            color: var(--text-main);
         }
 
         /* BARRA LATERAL */
@@ -26,83 +30,106 @@
             height: 100vh;
             background: var(--primary-color);
             color: white;
-            padding: 30px;
+            padding: 40px 30px;
             position: fixed;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
+            overflow-y: auto;
         }
 
         .profile-img {
-            width: 150px;
-            height: 150px;
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
             border: 4px solid var(--accent-color);
             margin-bottom: 20px;
             object-fit: cover;
-            background-color: #fff; /* Fondo temporal si no hay foto */
+            background: white;
         }
 
-        .sidebar h1 { font-size: 1.4em; margin-bottom: 10px; }
-        .sidebar p { font-size: 0.9em; color: #bdc3c7; margin-bottom: 30px; }
+        .sidebar h1 { font-size: 1.5em; margin-bottom: 10px; line-height: 1.2; }
+        .sidebar .description { font-size: 0.9em; color: #bdc3c7; margin-bottom: 30px; line-height: 1.5; }
 
-        .nav-menu { width: 100%; list-style: none; }
-        .nav-menu li { margin-bottom: 15px; }
+        .nav-menu { width: 100%; list-style: none; text-align: left; }
+        .nav-menu li { margin-bottom: 10px; }
         .nav-menu a {
-            color: white;
+            color: #ecf0f1;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 500;
             display: block;
-            padding: 10px;
-            border-radius: 5px;
-            transition: 0.3s;
+            padding: 12px 15px;
+            border-radius: 6px;
+            transition: all 0.3s;
         }
-        .nav-menu a:hover { background: rgba(255,255,255,0.1); color: var(--accent-color); }
+        .nav-menu a:hover { background: rgba(255,255,255,0.1); color: var(--accent-color); padding-left: 20px; }
 
         /* CONTENIDO PRINCIPAL */
         .main-content {
             margin-left: var(--sidebar-width);
-            padding: 50px;
-            width: 100%;
+            padding: 60px;
+            width: calc(100% - var(--sidebar-width));
         }
 
-        section { margin-bottom: 60px; scroll-margin-top: 50px; }
-        h2 { border-bottom: 2px solid var(--primary-color); padding-bottom: 10px; margin-bottom: 30px; }
+        section { margin-bottom: 80px; }
+        h2 { border-bottom: 3px solid var(--accent-color); display: inline-block; padding-bottom: 5px; margin-bottom: 40px; color: var(--primary-color); }
 
         .project-card { 
             background: white; 
-            padding: 25px; 
-            border-radius: 8px; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
-            margin-bottom: 30px; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            margin-bottom: 35px; 
+            border-left: 5px solid var(--primary-color);
         }
 
-        .tag { background: #e1e8ed; padding: 5px 12px; border-radius: 15px; font-size: 0.8em; font-weight: bold; margin-right: 5px; }
+        .project-card h3 { margin-bottom: 10px; color: var(--primary-color); }
+
+        .tags-container { margin: 15px 0; }
+        .tag { 
+            background: #eef2f3; 
+            padding: 6px 14px; 
+            border-radius: 20px; 
+            font-size: 0.8em; 
+            font-weight: 600; 
+            color: #555; 
+            margin-right: 8px;
+            display: inline-block;
+        }
         
         .btn { 
-            display: inline-block; 
+            display: inline-flex;
+            align-items: center;
             background: var(--accent-color); 
             color: white; 
-            padding: 10px 20px; 
+            padding: 12px 24px; 
             text-decoration: none; 
-            border-radius: 5px; 
-            margin-top: 15px; 
+            border-radius: 6px; 
+            margin-top: 20px; 
+            font-weight: bold;
+            transition: 0.3s;
         }
+        .btn:hover { background: #219150; transform: translateY(-2px); }
+        .btn-secondary { background: var(--primary-color); }
 
         .dashboard-container { 
             width: 100%; 
             padding-top: 56.25%; 
             position: relative; 
             margin-top: 20px;
-            background: #eee;
+            background: #f9f9f9;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #eee;
         }
         .dashboard-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
-        @media (max-width: 768px) {
+        /* RESPONSIVO */
+        @media (max-width: 992px) {
             body { flex-direction: column; }
-            .sidebar { width: 100%; height: auto; position: relative; }
-            .main-content { margin-left: 0; padding: 20px; }
+            .sidebar { width: 100%; height: auto; position: relative; padding: 40px 20px; }
+            .main-content { margin-left: 0; padding: 40px 20px; width: 100%; }
         }
     </style>
 </head>
@@ -111,49 +138,73 @@
     <nav class="sidebar">
         <img src="foto-jhon.jpg" alt="Jhon Fredy Garavito" class="profile-img">
         <h1>Jhon Fredy Garavito</h1>
-        <p>Data Analyst | Investigador Académico | Especialista en Finanzas</p>
+        <p class="description">Analista de Datos | Especialista en Finanzas | Investigador Doctoral<br><br>Transformando datos en conocimiento científico y decisiones estratégicas.</p>
         
         <ul class="nav-menu">
-            <li><a href="#proyectos">Proyectos de Análisis</a></li>
-            <li><a href="#publicaciones">Publicaciones Indexadas</a></li>
+            <li><a href="#about">Sobre Mí</a></li>
+            <li><a href="#publicaciones">Investigaciones Académicas</a></li>
+            <li><a href="#proyectos">Dashboards e Interactivos</a></li>
             <li><a href="#contacto">Contacto</a></li>
         </ul>
     </nav>
 
     <main class="main-content">
 
-        <section id="proyectos">
-            <h2>Proyectos de Análisis</h2>
-            
-            <div class="project-card">
-                <h3>Optimización de Inventarios Financieros</h3>
-                <p>Análisis de tendencias para reducción de costos operativos.</p>
-                <div style="margin: 10px 0;">
-                    <span class="tag">Power BI</span> <span class="tag">SQL</span>
-                </div>
-                <div class="dashboard-container">
-                    <iframe src="https://public.tableau.com/views/TuDashboardEjemplo"></iframe>
+        <section id="about">
+            <h2>Perfil Profesional</h2>
+            <div class="project-card" style="border-left: 5px solid var(--accent-color);">
+                <p>Administrador de Empresas y Magíster en Educación con enfoque en análisis cuantitativo. Mi trayectoria combina la gestión financiera con el rigor de la investigación científica. Especialista en procesar datos complejos para identificar patrones de comportamiento, optimizar recursos y validar hipótesis mediante estadística avanzada.</p>
+                <div class="tags-container">
+                    <span class="tag">SQL</span> <span class="tag">Python</span> <span class="tag">Power BI</span> <span class="tag">Tableau</span> <span class="tag">Excel Avanzado</span> <span class="tag">SPSS/R</span>
                 </div>
             </div>
         </section>
 
         <section id="publicaciones">
-            <h2>Publicaciones Científicas</h2>
+            <h2>Investigaciones Indexadas</h2>
             <div class="project-card">
-                <h3>Investigación en Revista Indexada (Nombre de la Revista)</h3>
-                <p>Análisis metodológico sobre impacto en procesos educativos y financieros.</p>
-                <a href="investigacion.pdf" target="_blank" class="btn">Leer Publicación (PDF)</a>
+                <span class="tag" style="background: #3498db; color: white;">Revista Indexada</span>
+                <h3>Título de tu Publicación Académica</h3>
+                <p>Análisis metodológico publicado que utiliza técnicas de síntesis de datos y validación estadística para resolver problemas en el sector educativo/financiero.</p>
+                <a href="investigacion-1.pdf" target="_blank" class="btn btn-secondary">📄 Leer Publicación Completa (PDF)</a>
+            </div>
+        </section>
+
+        <section id="proyectos">
+            <h2>Dashboards Interactivos</h2>
+            
+            <div class="project-card">
+                <h3>Dashboard de Gestión Financiera</h3>
+                <p>Visualización de KPIs estratégicos para el monitoreo de flujos de caja y rendimiento operativo.</p>
+                <div class="dashboard-container">
+                    <iframe src="https://public.tableau.com/views/TuDashboardEjemplo"></iframe>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <span class="tag" style="background: #e67e22; color: white;">Python</span>
+                <h3>Análisis Predictivo en Google Colab</h3>
+                <p>Desarrollo de modelos de limpieza de datos automatizada y predicción de tendencias mediante Machine Learning.</p>
+                <a href="TU_LINK_DE_COLAB_AQUI" target="_blank" class="btn">
+                    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Colab" style="margin-right: 8px;"> 
+                    Ejecutar Código en Vivo
+                </a>
             </div>
         </section>
 
         <section id="contacto">
             <h2>Contacto</h2>
             <div class="project-card">
-                <p>¿Interesado en una colaboración o vacante de Análisis de Datos?</p>
-                <p style="margin-top: 15px;"><strong>Email:</strong> tu-email@ejemplo.com</p>
-                <p><strong>LinkedIn:</strong> <a href="#">Tu Perfil Aquí</a></p>
+                <p>Estoy abierto a oportunidades como Analista de Datos Senior o Consultor Estratégico Remoto.</p>
+                <p style="margin-top: 15px;"><strong>📧 Email:</strong> tu-email@ejemplo.com</p>
+                <p style="margin-top: 10px;"><strong>🔗 LinkedIn:</strong> <a href="https://linkedin.com/in/tuperfil" target="_blank" style="color: var(--accent-color); text-decoration: none; font-weight: bold;">linkedin.com/in/tuperfil</a></p>
+                <a href="tu-cv.pdf" class="btn" style="background: #34495e;">Descargar CV (PDF)</a>
             </div>
         </section>
+
+        <footer style="text-align: center; color: var(--text-light); font-size: 0.8em;">
+            <p>&copy; 2026 Jhon Fredy Garavito Rocha | Portafolio Profesional de Datos</p>
+        </footer>
 
     </main>
 
