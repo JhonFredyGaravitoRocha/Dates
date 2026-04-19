@@ -149,7 +149,6 @@
             font-size: 0.9em;
             transition: 0.3s;
         }
-        .doi-text:hover { background: white; }
 
         .d3-tooltip {
             position: absolute;
@@ -215,21 +214,33 @@
                 </div>
             </div>
 
+            <div class="project-card" style="border-left: 5px solid #2980b9;">
+                <h3>Interdependencia: Petróleo Brent vs. Dólar (DXY)</h3>
+                <p>Estudio de la relación inversa entre el valor del dólar y el precio de los commodities. Fundamental para proyección de ingresos fiscales.</p>
+                <div class="dashboard-wrapper">
+                    <iframe src="correlacion_petroleo_dolar.html" width="100%" height="450px" frameborder="0"></iframe>
+                </div>
+                <div style="margin-top: 15px;">
+                    <span class="tag" style="background: #2980b9; color: white;">Correlación de Pearson</span>
+                    <span class="tag">Análisis Multivariante</span>
+                </div>
+            </div>
+
             <div class="project-card" style="border-left: 5px solid #8e44ad;">
                 <h3>Matriz de Correlación Multivariante</h3>
-                <p>Este mapa de calor identifica sinergias y riesgos entre activos clave, vital para la mitigación de choques externos.</p>
+                <p>Este mapa de calor identifica sinergias y riesgos compartidos entre activos clave para la mitigación de choques externos.</p>
                 <div class="dashboard-wrapper">
                     <iframe src="matriz_correlacion.html" width="100%" height="450px" frameborder="0"></iframe>
                 </div>
                 <div style="margin-top: 15px;">
                     <span class="tag" style="background: #8e44ad; color: white;">Heatmap Analysis</span>
-                    <span class="tag">Pearson Coefficient</span>
+                    <span class="tag">Risk Management</span>
                 </div>
             </div>
 
             <div class="project-card" style="border-left: 5px solid #c0392b;">
                 <h3>Salud vs. Riqueza: Trayectorias Globales</h3>
-                <p>Visualización pentadimensional de indicadores de desarrollo humano basada en Gapminder.</p>
+                <p>Visualización pentadimensional basada en Gapminder para observar trayectorias de convergencia de las naciones.</p>
                 <div class="dashboard-wrapper">
                     <iframe src="analisis_evolutivo_global.html" width="100%" height="550px" frameborder="0"></iframe>
                 </div>
@@ -241,7 +252,7 @@
 
             <div class="project-card" style="border-left: 5px solid var(--primary-color);">
                 <h3>Evolución Transversal del PIB</h3>
-                <p>Análisis cartográfico animado de la trayectoria del PIB per cápita mundial durante las últimas seis décadas.</p>
+                <p>Análisis cartográfico animado para identificar ciclos de crecimiento y disparidades geográficas globales.</p>
                 <div class="dashboard-wrapper">
                     <iframe src="dinamica_global_pib.html" width="100%" height="550px" frameborder="0"></iframe>
                 </div>
@@ -255,7 +266,7 @@
             <div class="project-card">
                 <span style="text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; color: #27ae60; font-weight: bold;">Data Engineering</span>
                 <h3 style="margin-top: 10px;">Visualización D3.js Dinámica</h3>
-                <p>Consumo de datos remotos vía API para análisis de población en tiempo real.</p>
+                <p>Análisis que consume datos remotos vía API, técnica aplicable a flujos de datos gubernamentales en tiempo real.</p>
                 <div id="d3-remote-container" style="width: 100%; min-height: 400px; margin-top: 20px; background: rgba(255,255,255,0.2); border-radius: 15px; display: flex; align-items: center; justify-content: center;">
                     <div id="loader">Sincronizando con repositorio de datos...</div>
                 </div>
@@ -291,7 +302,7 @@
         <section id="contacto">
             <div class="project-card" style="text-align: center; background: rgba(44, 62, 80, 0.05);">
                 <h3>¿Hablamos?</h3>
-                <p>Disponible para Análisis de Datos, Consultoría e Investigación.</p>
+                <p>Disponible para Análisis de Datos, Consultoría e Investigación Aplicada.</p>
                 <p style="margin: 20px 0;"><strong>📧</strong> JhonGaravito@esap.edu.co</p>
                 <a href="https://www.linkedin.com/in/jhon-garavito/" target="_blank" class="btn">LinkedIn Perfil</a>
             </div>
