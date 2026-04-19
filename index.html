@@ -4,32 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jhon Fredy Garavito | Data Analyst & Research</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --sidebar-width: 320px;
             --primary-color: #2c3e50;
             --accent-color: #27ae60;
-            --bg-color: #f4f7f6;
-            --text-main: #333;
-            --text-light: #7f8c8d;
-            --doi-color: #0056b3;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --text-main: #2d3436;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         
         body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: var(--bg-color);
+            font-family: 'Inter', sans-serif; 
+            /* Fondo con gradiente moderno */
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            background-attachment: fixed;
             display: flex;
             color: var(--text-main);
+            min-height: 100vh;
         }
 
-        /* BARRA LATERAL */
+        /* BARRA LATERAL ESTILO GLASS */
         .sidebar {
             width: var(--sidebar-width);
             height: 100vh;
-            background: var(--primary-color);
+            background: rgba(44, 62, 80, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             color: white;
             padding: 40px 30px;
             position: fixed;
@@ -37,109 +42,121 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            overflow-y: auto;
+            border-right: 1px solid rgba(255,255,255,0.1);
         }
 
         .profile-img {
-            width: 160px;
-            height: 160px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
-            border: 4px solid var(--accent-color);
+            border: 3px solid rgba(255,255,255,0.2);
             margin-bottom: 20px;
             object-fit: cover;
-            background: white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
-        .sidebar h1 { font-size: 1.5em; margin-bottom: 10px; line-height: 1.2; }
-        .sidebar .description { font-size: 0.9em; color: #bdc3c7; margin-bottom: 30px; line-height: 1.5; }
+        .sidebar h1 { font-size: 1.4em; font-weight: 600; margin-bottom: 10px; }
+        .sidebar .description { font-size: 0.85em; opacity: 0.8; margin-bottom: 30px; font-weight: 300; }
 
-        .nav-menu { width: 100%; list-style: none; text-align: left; }
-        .nav-menu li { margin-bottom: 10px; }
+        .nav-menu { width: 100%; list-style: none; }
         .nav-menu a {
-            color: #ecf0f1;
+            color: rgba(255,255,255,0.7);
             text-decoration: none;
-            font-weight: 500;
+            font-size: 0.9em;
             display: block;
-            padding: 12px 15px;
-            border-radius: 6px;
-            transition: all 0.3s;
+            padding: 12px;
+            border-radius: 12px;
+            transition: 0.3s;
+            margin-bottom: 5px;
         }
-        .nav-menu a:hover { background: rgba(255,255,255,0.1); color: var(--accent-color); padding-left: 20px; }
+        .nav-menu a:hover { 
+            background: rgba(255,255,255,0.1); 
+            color: white; 
+            transform: translateX(5px);
+        }
 
         /* CONTENIDO PRINCIPAL */
         .main-content {
             margin-left: var(--sidebar-width);
             padding: 60px;
-            width: calc(100% - var(--sidebar-width));
+            width: 100%;
         }
 
-        section { margin-bottom: 80px; }
-        h2 { border-bottom: 3px solid var(--accent-color); display: inline-block; padding-bottom: 5px; margin-bottom: 40px; color: var(--primary-color); }
+        h2 { 
+            font-weight: 600; 
+            font-size: 1.8em;
+            margin-bottom: 30px; 
+            color: var(--primary-color);
+            letter-spacing: -1px;
+        }
 
+        /* TARJETAS GLASSMORPHISM */
         .project-card { 
-            background: white; 
-            padding: 30px; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
-            margin-bottom: 35px; 
-            border-left: 5px solid var(--primary-color);
+            background: var(--glass-bg); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 40px; 
+            border-radius: 24px; 
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05); 
+            margin-bottom: 40px; 
+            transition: 0.4s;
         }
 
-        .project-card h3 { margin-bottom: 10px; color: var(--primary-color); font-size: 1.3em; }
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .project-card h3 { margin-bottom: 15px; font-weight: 600; }
 
         .tag { 
-            background: #eef2f3; 
-            padding: 6px 14px; 
-            border-radius: 20px; 
-            font-size: 0.8em; 
+            background: rgba(255,255,255,0.5); 
+            padding: 6px 16px; 
+            border-radius: 30px; 
+            font-size: 0.75em; 
             font-weight: 600; 
-            color: #555; 
-            margin-right: 8px;
-            display: inline-block;
+            color: #4b5e71; 
+            margin: 0 8px 8px 0;
+            border: 1px solid rgba(255,255,255,0.3);
         }
         
         .btn { 
             display: inline-flex;
             align-items: center;
-            background: var(--accent-color); 
+            background: var(--primary-color); 
             color: white; 
-            padding: 10px 18px; 
+            padding: 12px 24px; 
             text-decoration: none; 
-            border-radius: 6px; 
-            margin-top: 20px; 
-            font-weight: bold;
+            border-radius: 14px; 
+            font-size: 0.9em;
+            font-weight: 600;
             transition: 0.3s;
-            margin-right: 10px;
         }
-        .btn:hover { background: #219150; transform: translateY(-2px); }
-        .btn-doi { background: #34495e; }
+        .btn:hover { opacity: 0.9; transform: scale(1.02); }
 
-        /* CONTENEDOR DE DASHBOARD */
+        /* DASHBOARDS */
         .dashboard-wrapper {
-            position: relative;
-            padding-bottom: 56.25%; /* Ratio 16:9 */
-            height: 0;
+            background: rgba(0,0,0,0.03);
+            border-radius: 18px;
             overflow: hidden;
-            border-radius: 8px;
-            background: #eee;
-            margin-top: 20px;
-            border: 1px solid #ddd;
-        }
-        .dashboard-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
+            margin-top: 25px;
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
-        .doi-text { font-family: monospace; color: var(--doi-color); background: #f0f7ff; padding: 2px 5px; border-radius: 3px; font-size: 0.9em; }
+        .doi-text { 
+            font-weight: 400;
+            color: #2c3e50; 
+            background: rgba(255,255,255,0.4); 
+            padding: 4px 8px; 
+            border-radius: 8px; 
+        }
 
         @media (max-width: 992px) {
             body { flex-direction: column; }
             .sidebar { width: 100%; height: auto; position: relative; padding: 40px 20px; }
-            .main-content { margin-left: 0; padding: 40px 20px; width: 100%; }
+            .main-content { margin-left: 0; padding: 40px 20px; }
         }
     </style>
 </head>
@@ -151,9 +168,9 @@
         <p class="description">Administrador Público | Analista de Datos | Especialista en Desarrollo | Investigador</p>
         
         <ul class="nav-menu">
+            <li><a href="#about">Sobre Mí</a></li>
+            <li><a href="#colab">Visualizaciones Python</a></li>
             <li><a href="#publicaciones">Investigaciones</a></li>
-            <li><a href="#dashboards">Proyectos</a></li>
-            <li><a href="#colab">Desarrollo Python</a></li>
             <li><a href="#contacto">Contacto</a></li>
         </ul>
     </nav>
@@ -161,168 +178,76 @@
     <main class="main-content">
 
         <section id="about">
-            <div class="project-card" style="border-left: 5px solid var(--accent-color);">
-                <p>Administrador Público, Magíster en Desarrollo Territorial e Investigador especializado en análisis cuantitativo avanzado. Experto en la síntesis de datos multidimensionales para la resolución de problemas financieros y territoriales. Combino el rigor de la metodología científica con herramientas de Data Science para modelar soluciones estratégicas basadas en la realidad del entorno público y privado.</p>
-                <div style="margin-top: 15px;">
-                    <span class="tag">SQL</span> <span class="tag">Python</span> <span class="tag">Power BI</span> <span class="tag">Análisis Territorial</span> <span class="tag">Gestión Pública</span>
+            <div class="project-card" style="border-top: 4px solid var(--accent-color);">
+                <h2>Perfil Profesional</h2>
+                <p style="font-size: 1.1em; line-height: 1.7; color: #444;">Administrador Público, Magíster en Desarrollo Territorial e Investigador especializado en análisis cuantitativo avanzado. Experto en la síntesis de datos multidimensionales para la resolución de problemas financieros y territoriales.</p>
+                <div style="margin-top: 25px;">
+                    <span class="tag">SQL</span> <span class="tag">Python</span> <span class="tag">Análisis Territorial</span> <span class="tag">Gestión Pública</span>
                 </div>
             </div>
         </section>
      
-<section id="colab">
-    <div class="project-card" style="border-left: 5px solid #e67e22;">
-        <h3>Tendencias del Petróleo Brent</h3>
-        <p>Visualización interactiva generada con Python. Este gráfico consume datos en vivo y aplica medias móviles para el análisis de tendencias.</p>
-        
-        <div class="dashboard-wrapper" style="padding-bottom: 50%; border: 1px solid #eee;">
-            <iframe 
-                src="petroleo_grafico.html" 
-                width="100%" 
-                height="500px">
-            </iframe>
-        </div>
-
-        <div style="margin-top: 20px;">
-            <a href="https://colab.research.google.com/drive/1164hU-19gbpmr193bEOFx6-Yvsievml1?usp=sharing" target="_blank" class="btn" style="background: #e67e22;">
-                🚀 Ver Código Fuente en Colab
-            </a>
-        </div>
-    </div>
-</section>
-
-<section id="analisis-avanzado">
-    <div class="project-card" style="border-left: 5px solid #2980b9;">
-        <h3>Interdependencia: Petróleo Brent vs. Dólar (DXY)</h3>
-        <p>Estudio de la relación inversa entre el valor del dólar y el precio de los commodities. Este análisis es fundamental para la proyección de ingresos fiscales en economías dependientes de exportaciones energéticas.</p>
-        
-        <div class="dashboard-wrapper" style="padding-bottom: 50%;">
-            <iframe 
-                src="correlacion_petroleo_dolar.html" 
-                width="100%" 
-                height="500px">
-            </iframe>
-        </div>
-
-        <div style="margin-top: 15px;">
-            <span class="tag" style="background: #2980b9; color: white;">Correlación de Pearson</span>
-            <span class="tag">Normalización de Datos</span>
-            <span class="tag">Análisis Multivariante</span>
-        </div>
-    </div>
-</section>
-
-
-<section id="matriz-riesgo">
-    <div class="project-card" style="border-left: 5px solid #8e44ad;">
-        <h3>Matriz de Correlación Multivariante</h3>
-        <p>Este mapa de calor identifica las sinergias y riesgos compartidos entre activos clave. Para la gestión pública, entender estas correlaciones es vital para la diversificación de fondos soberanos y la mitigación de choques externos.</p>
-        
-        <div class="dashboard-wrapper" style="padding-bottom: 50%;">
-            <iframe 
-                src="matriz_correlacion.html" 
-                width="100%" 
-                height="500px">
-            </iframe>
-        </div>
-
-        <div style="margin-top: 15px;">
-            <span class="tag" style="background: #8e44ad; color: white;">Heatmap Analysis</span>
-            <span class="tag">Pearson Coefficient</span>
-            <span class="tag">Risk Management</span>
-        </div>
-    </div>
-</section>
-
-<section id="big-data-viz">
-    <div class="project-card" style="border-left: 5px solid #c0392b;">
-        <h3>Dinámica del Desarrollo Territorial: Salud vs. Riqueza</h3>
-        <p>Esta visualización pentadimensional analiza la evolución de los indicadores de desarrollo humano a nivel global. Permite observar las trayectorias de convergencia y divergencia de las naciones, una herramienta crítica para la formulación de políticas públicas basadas en evidencia histórica.</p>
-        
-        <div class="dashboard-wrapper" style="padding-bottom: 60%;">
-            <iframe 
-                src="analisis_evolutivo_global.html" 
-                width="100%" 
-                height="650px">
-            </iframe>
-        </div>
-
-        <div style="margin-top: 20px;">
-            <span class="tag" style="background: #c0392b; color: white;">Análisis Longitudinal</span>
-            <span class="tag">Global Data</span>
-            <span class="tag">Gapminder Methodology</span>
-        </div>
-    </div>
-</section>
-
-<section id="global-dynamics">
-    <div class="project-card" style="border-left: 5px solid #2c3e50;">
-        <h3>Evolución Transversal del Desarrollo Humano</h3>
-        <p>Esta visualización cartográfica animada utiliza el dataset Gapminder para analizar la trayectoria del PIB per cápita a nivel mundial durante las últimas seis décadas. El análisis permite identificar ciclos de crecimiento y disparidades geográficas, fundamentales para entender el contexto macroeconómico en el que se inscriben las políticas territoriales locales.</p>
-        
-        <div class="dashboard-wrapper" style="padding-bottom: 60%;">
-            <iframe 
-                src="dinamica_global_pib.html" 
-                width="100%" 
-                height="600px">
-            </iframe>
-        </div>
-
-        <div style="margin-top: 20px;">
-            <span class="tag">Series de Tiempo</span>
-            <span class="tag">Desarrollo Internacional</span>
-            <span class="tag">Plotly Geo</span>
-        </div>
-    </div>
-</section>
-        
-
-
-
-
-
-        
-        
-        
-        <section id="publicaciones">
+        <section id="colab">
+            <h2>Ciencia de Datos Aplicada</h2>
+            
             <div class="project-card">
-                <h3>Publicaciones en Revistas Indexadas</h3>
-                <p>Cuerpo de investigación validado internacionalmente con enfoque en el rigor metodológico y análisis de realidad (ARA).</p>
-                <ul style="list-style: none; margin-top: 15px;">
-                    <li style="margin-bottom: 12px;">• <span class="doi-text">Soberanía sin router: de la estrategia de la mano muerta a la disuasión autodestructiva</span> <a href="https://doi.org/10.1344/ara2026.313.51512" target="_blank" style="text-decoration:none;">🔗</a></li>
-                    <li style="margin-bottom: 12px;">• <span class="doi-text">Tensiones entre campesinos y empresarios: La lucha por detener la deforestación en la Amazonia colombiana en el marco del neoliberalismo en el periodo 2011-2021</span> <a href="https://doi.org/10.1344/ara2023.285.41299" target="_blank" style="text-decoration:none;">🔗</a></li>
-                    <li style="margin-bottom: 12px;">• <span class="doi-text">El capital y su sicofante el Policarpa Salavarrieta y la Central Nacional Provivienda, Bogotá (1940-1980)</span> <a href="https://doi.org/10.1344/ara2022.273.39776" target="_blank" style="text-decoration:none;">🔗</a></li>
+                <h3>Tendencias del Petróleo Brent</h3>
+                <p>Análisis en tiempo real con medias móviles para detección de señales de mercado.</p>
+                <div class="dashboard-wrapper">
+                    <iframe src="petroleo_grafico.html" width="100%" height="500px"></iframe>
+                </div>
+                <div style="margin-top: 20px;">
+                    <a href="https://colab.research.google.com/drive/1164hU-19gbpmr193bEOFx6-Yvsievml1?usp=sharing" target="_blank" class="btn">🚀 Abrir Colab</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>Interdependencia: Petróleo vs. Dólar</h3>
+                <div class="dashboard-wrapper">
+                    <iframe src="correlacion_petroleo_dolar.html" width="100%" height="500px"></iframe>
+                </div>
+                <div style="margin-top: 20px;">
+                    <span class="tag">Pearson Correlation</span><span class="tag">Macroeconomía</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>Matriz de Correlación Multivariante</h3>
+                <div class="dashboard-wrapper">
+                    <iframe src="matriz_correlacion.html" width="100%" height="500px"></iframe>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>Desarrollo Territorial: Salud vs. Riqueza</h3>
+                <div class="dashboard-wrapper">
+                    <iframe src="analisis_evolutivo_global.html" width="100%" height="600px"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <section id="publicaciones">
+            <h2>Investigaciones Indexadas</h2>
+            <div class="project-card">
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(0,0,0,0.05);">
+                        <strong style="display:block; margin-bottom: 5px;">Soberanía sin router: disuasión autodestructiva</strong>
+                        <span class="doi-text">DOI: 10.1344/ara2026.313.51512</span>
+                    </li>
+                    <li style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(0,0,0,0.05);">
+                        <strong style="display:block; margin-bottom: 5px;">Tensiones entre campesinos y empresarios: Amazonía 2011-2021</strong>
+                        <span class="doi-text">DOI: 10.1344/ara2023.285.41299</span>
+                    </li>
                 </ul>
             </div>
         </section>
 
-
-
-        <!--
-
-        <section id="dashboards">
-            <div class="project-card">
-                <h3>Visualización de Indicadores Estratégicos</h3>
-                <p>Reporte interactivo para el monitoreo de métricas clave (KPIs) y tendencias financieras. Optimizado para la toma de decisiones basada en evidencia.</p>
-                <div class="dashboard-wrapper">
-                    <iframe src="https://app.powerbi.com/reportEmbed?reportId=2c021780-ac6b-4ac4-87a3-ca96bab50218" allowfullscreen="true"></iframe>
-                </div>
-                <div style="margin-top: 15px;">
-                    <span class="tag">Power BI</span> <span class="tag">DAX</span> <span class="tag">ETL</span>
-                </div>
-            </div>
-        </section>
-
--->
-
-
-
-        
-
         <section id="contacto">
-            <div class="project-card">
-                <p>Disponible para proyectos de análisis de datos, consultoría territorial e investigación aplicada.</p>
-                <p style="margin-top: 15px;"><strong>📧 Em:</strong> <a href="mailto:jhonGaravito@esap.edu.co" style="color: var(--primary-color); text-decoration: none;">JhonGaravito@esap.edu.co</a></p>
-                <a href="https://www.linkedin.com/in/jhon-garavito/" target="_blank" class="btn btn-doi">LinkedIn Perfil</a>
+            <div class="project-card" style="text-align: center; background: rgba(44, 62, 80, 0.05);">
+                <h3>¿Hablamos?</h3>
+                <p>Disponible para consultoría territorial e investigación aplicada.</p>
+                <p style="margin: 20px 0;"><strong>📧</strong> JhonGaravito@esap.edu.co</p>
+                <a href="https://www.linkedin.com/in/jhon-garavito/" target="_blank" class="btn">LinkedIn Perfil</a>
             </div>
         </section>
 
