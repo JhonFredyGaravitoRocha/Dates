@@ -87,7 +87,6 @@
 
         .project-card h3 { margin-bottom: 10px; color: var(--primary-color); font-size: 1.3em; }
 
-        .tags-container { margin: 15px 0; }
         .tag { 
             background: #eef2f3; 
             padding: 6px 14px; 
@@ -111,10 +110,28 @@
             font-weight: bold;
             transition: 0.3s;
             margin-right: 10px;
-            font-size: 0.9em;
         }
         .btn:hover { background: #219150; transform: translateY(-2px); }
         .btn-doi { background: #34495e; }
+
+        /* CONTENEDOR DE DASHBOARD */
+        .dashboard-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* Ratio 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #eee;
+            margin-top: 20px;
+        }
+        .dashboard-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
 
         .doi-text { font-family: monospace; color: var(--doi-color); background: #f0f7ff; padding: 2px 5px; border-radius: 3px; }
 
@@ -130,12 +147,13 @@
     <nav class="sidebar">
         <img src="foto-jhon.jpg" alt="Jhon Fredy Garavito" class="profile-img">
         <h1>Jhon Fredy Garavito</h1>
-        <p class="description">Analista de Datos | Especialista en Finanzas | Investigador Doctoral<br><br>Rigor metodológico y científico aplicado al análisis de datos estratégicos.</p>
+        <p class="description">Analista de Datos | Especialista en Finanzas | Investigador Doctoral</p>
         
         <ul class="nav-menu">
             <li><a href="#about">Sobre Mí</a></li>
             <li><a href="#publicaciones">Investigaciones DOI</a></li>
-            <li><a href="#proyectos">Dashboards e Interactivos</a></li>
+            <li><a href="#dashboards">Visualización Interactiva</a></li>
+            <li><a href="#colab">Código Python</a></li>
             <li><a href="#contacto">Contacto</a></li>
         </ul>
     </nav>
@@ -145,47 +163,46 @@
         <section id="about">
             <h2>Perfil Profesional</h2>
             <div class="project-card" style="border-left: 5px solid var(--accent-color);">
-                <p>Administrador Público y Magíster en Desarrollo Urbano y Territorial. Mi perfil integra en analisis de datos con la precisión académica. Experto en el análisis de sistemas complejos, procesamiento de datos y validación de hipótesis mediante herramientas de vanguardia, garantizando que cada insight tenga sustento científico y aplicabilidad práctica.</p>
-                <div class="tags-container">
-                    <span class="tag">SQL</span> <span class="tag">Python</span> <span class="tag">Power BI</span> <span class="tag">Análisis Multivariante</span> <span class="tag">Finanzas</span>
+                <p>Magíster e Investigador Doctoral con amplia experiencia en análisis cuantitativo y financiero. Mi especialidad es la síntesis de datos complejos para generar estrategias basadas en evidencia científica.</p>
+                <div style="margin-top: 15px;">
+                    <span class="tag">SQL</span> <span class="tag">Python</span> <span class="tag">Power BI</span> <span class="tag">Análisis Financiero</span>
                 </div>
             </div>
         </section>
 
         <section id="publicaciones">
-            <h2>Investigaciones en Revistas Indexadas (ARA)</h2>
-            
+            <h2>Investigaciones Indexadas (ARA)</h2>
             <div class="project-card">
-                <h3>Análisis de Realidad y Humanidades (2026)</h3>
-                <p>Investigación reciente validada por la Universidad de Barcelona sobre análisis de fenómenos sociales y filosóficos.</p>
-                <p style="margin-top: 10px;">DOI: <span class="doi-text">10.1344/ara2026.313.51512</span></p>
-                <a href="https://doi.org/10.1344/ara2026.313.51512" target="_blank" class="btn btn-doi">🌐 Ver en Revista</a>
-            </div>
-
-            <div class="project-card">
-                <h3>Investigación de Sistemas y Crítica (2023)</h3>
-                <p>Estudio especializado enfocado en el análisis crítico de estructuras institucionales y educativas.</p>
-                <p style="margin-top: 10px;">DOI: <span class="doi-text">10.1344/ara2023.285.41299</span></p>
-                <a href="https://doi.org/10.1344/ara2023.285.41299" target="_blank" class="btn btn-doi">🌐 Ver en Revista</a>
-            </div>
-
-            <div class="project-card">
-                <h3>Fundamentos Metodológicos (2022)</h3>
-                <p>Desarrollo teórico-práctico sobre la interpretación de realidades y gestión del conocimiento.</p>
-                <p style="margin-top: 10px;">DOI: <span class="doi-text">10.1344/ara2022.273.39776</span></p>
-                <a href="https://doi.org/10.1344/ara2022.273.39776" target="_blank" class="btn btn-doi">🌐 Ver en Revista</a>
+                <h3>Análisis de Realidad (2022 - 2026)</h3>
+                <p>Cuerpo de investigación validado internacionalmente con enfoque en el rigor metodológico.</p>
+                <ul style="list-style: none; margin-top: 15px;">
+                    <li style="margin-bottom: 10px;">• <span class="doi-text">10.1344/ara2026.313.51512</span> <a href="https://doi.org/10.1344/ara2026.313.51512" target="_blank" style="text-decoration:none;">🔗</a></li>
+                    <li style="margin-bottom: 10px;">• <span class="doi-text">10.1344/ara2023.285.41299</span> <a href="https://doi.org/10.1344/ara2023.285.41299" target="_blank" style="text-decoration:none;">🔗</a></li>
+                    <li style="margin-bottom: 10px;">• <span class="doi-text">10.1344/ara2022.273.39776</span> <a href="https://doi.org/10.1344/ara2022.273.39776" target="_blank" style="text-decoration:none;">🔗</a></li>
+                </ul>
             </div>
         </section>
 
-        <section id="proyectos">
-            <h2>Portafolio Técnico</h2>
+        <section id="dashboards">
+            <h2>Dashboards de Negocio</h2>
             <div class="project-card">
-                <span class="tag" style="background: #e67e22; color: white;">Google Colab / Python</span>
-                <h3>Notebooks de Procesamiento de Datos</h3>
-                <p>Implementación de scripts para limpieza de datos, análisis estadístico y visualización dinámica.</p>
+                <h3>Visualización de Indicadores Estratégicos</h3>
+                <p>Reporte interactivo para el monitoreo de métricas clave (KPIs) y tendencias financieras.</p>
+                <div class="dashboard-wrapper">
+                    <iframe src="https://public.tableau.com/views/TuDashboardEjemplo" allowfullscreen="true"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <section id="colab">
+            <h2>Análisis con Python (Google Colab)</h2>
+            <div class="project-card">
+                <span class="tag" style="background: #e67e22; color: white;">Notebook</span>
+                <h3>Procesamiento Estadístico Automatizado</h3>
+                <p>Limpieza de datos (ETL) y aplicación de modelos estadísticos para validación de hipótesis.</p>
                 <a href="TU_LINK_DE_COLAB_AQUI" target="_blank" class="btn">
                     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Colab" style="margin-right: 8px;"> 
-                    Abrir en Colab
+                    Ver Código en Vivo
                 </a>
             </div>
         </section>
@@ -193,15 +210,10 @@
         <section id="contacto">
             <h2>Contacto</h2>
             <div class="project-card">
-                <p>Disponible para posiciones de Análisis de Datos, Consultoría Financiera e Investigación Estratégica.</p>
-                <p style="margin-top: 15px;"><strong>📧 Email:</strong> jhon.garavito@ejemplo.com</p>
+                <p><strong>Email:</strong> tu-correo@ejemplo.com</p>
                 <a href="https://linkedin.com/in/tuperfil" target="_blank" class="btn btn-doi">LinkedIn</a>
             </div>
         </section>
-
-        <footer style="text-align: center; color: var(--text-light); font-size: 0.8em;">
-            <p>&copy; 2026 Jhon Fredy Garavito Rocha | Investigador y Analista de Datos</p>
-        </footer>
 
     </main>
 </body>
