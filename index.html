@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jhon Fredy Garavito | Portfolio de Análisis de Datos</title>
+    <title>Jhon Fredy Garavito | Data Analyst & Research</title>
     <style>
         :root {
             --sidebar-width: 320px;
@@ -12,6 +12,7 @@
             --bg-color: #f4f7f6;
             --text-main: #333;
             --text-light: #7f8c8d;
+            --doi-color: #0056b3;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -84,7 +85,7 @@
             border-left: 5px solid var(--primary-color);
         }
 
-        .project-card h3 { margin-bottom: 10px; color: var(--primary-color); }
+        .project-card h3 { margin-bottom: 10px; color: var(--primary-color); font-size: 1.3em; }
 
         .tags-container { margin: 15px 0; }
         .tag { 
@@ -103,29 +104,20 @@
             align-items: center;
             background: var(--accent-color); 
             color: white; 
-            padding: 12px 24px; 
+            padding: 10px 18px; 
             text-decoration: none; 
             border-radius: 6px; 
             margin-top: 20px; 
             font-weight: bold;
             transition: 0.3s;
+            margin-right: 10px;
+            font-size: 0.9em;
         }
         .btn:hover { background: #219150; transform: translateY(-2px); }
-        .btn-secondary { background: var(--primary-color); }
+        .btn-doi { background: #34495e; }
 
-        .dashboard-container { 
-            width: 100%; 
-            padding-top: 56.25%; 
-            position: relative; 
-            margin-top: 20px;
-            background: #f9f9f9;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid #eee;
-        }
-        .dashboard-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .doi-text { font-family: monospace; color: var(--doi-color); background: #f0f7ff; padding: 2px 5px; border-radius: 3px; }
 
-        /* RESPONSIVO */
         @media (max-width: 992px) {
             body { flex-direction: column; }
             .sidebar { width: 100%; height: auto; position: relative; padding: 40px 20px; }
@@ -138,11 +130,11 @@
     <nav class="sidebar">
         <img src="foto-jhon.jpg" alt="Jhon Fredy Garavito" class="profile-img">
         <h1>Jhon Fredy Garavito</h1>
-        <p class="description">Analista de Datos | Especialista en Finanzas | Investigador Doctoral<br><br>Transformando datos en conocimiento científico y decisiones estratégicas.</p>
+        <p class="description">Analista de Datos | Especialista en Finanzas | Investigador Doctoral<br><br>Rigor metodológico y científico aplicado al análisis de datos estratégicos.</p>
         
         <ul class="nav-menu">
             <li><a href="#about">Sobre Mí</a></li>
-            <li><a href="#publicaciones">Investigaciones Académicas</a></li>
+            <li><a href="#publicaciones">Investigaciones DOI</a></li>
             <li><a href="#proyectos">Dashboards e Interactivos</a></li>
             <li><a href="#contacto">Contacto</a></li>
         </ul>
@@ -153,41 +145,47 @@
         <section id="about">
             <h2>Perfil Profesional</h2>
             <div class="project-card" style="border-left: 5px solid var(--accent-color);">
-                <p>Administrador de Empresas y Magíster en Educación con enfoque en análisis cuantitativo. Mi trayectoria combina la gestión financiera con el rigor de la investigación científica. Especialista en procesar datos complejos para identificar patrones de comportamiento, optimizar recursos y validar hipótesis mediante estadística avanzada.</p>
+                <p>Administrador Público y Magíster en Desarrollo Urbano y Territorial. Mi perfil integra en analisis de datos con la precisión académica. Experto en el análisis de sistemas complejos, procesamiento de datos y validación de hipótesis mediante herramientas de vanguardia, garantizando que cada insight tenga sustento científico y aplicabilidad práctica.</p>
                 <div class="tags-container">
-                    <span class="tag">SQL</span> <span class="tag">Python</span> <span class="tag">Power BI</span> <span class="tag">Tableau</span> <span class="tag">Excel Avanzado</span> <span class="tag">SPSS/R</span>
+                    <span class="tag">SQL</span> <span class="tag">Python</span> <span class="tag">Power BI</span> <span class="tag">Análisis Multivariante</span> <span class="tag">Finanzas</span>
                 </div>
             </div>
         </section>
 
         <section id="publicaciones">
-            <h2>Investigaciones Indexadas</h2>
+            <h2>Investigaciones en Revistas Indexadas (ARA)</h2>
+            
             <div class="project-card">
-                <span class="tag" style="background: #3498db; color: white;">Revista Indexada</span>
-                <h3>Título de tu Publicación Académica</h3>
-                <p>Análisis metodológico publicado que utiliza técnicas de síntesis de datos y validación estadística para resolver problemas en el sector educativo/financiero.</p>
-                <a href="investigacion-1.pdf" target="_blank" class="btn btn-secondary">📄 Leer Publicación Completa (PDF)</a>
+                <h3>Análisis de Realidad y Humanidades (2026)</h3>
+                <p>Investigación reciente validada por la Universidad de Barcelona sobre análisis de fenómenos sociales y filosóficos.</p>
+                <p style="margin-top: 10px;">DOI: <span class="doi-text">10.1344/ara2026.313.51512</span></p>
+                <a href="https://doi.org/10.1344/ara2026.313.51512" target="_blank" class="btn btn-doi">🌐 Ver en Revista</a>
+            </div>
+
+            <div class="project-card">
+                <h3>Investigación de Sistemas y Crítica (2023)</h3>
+                <p>Estudio especializado enfocado en el análisis crítico de estructuras institucionales y educativas.</p>
+                <p style="margin-top: 10px;">DOI: <span class="doi-text">10.1344/ara2023.285.41299</span></p>
+                <a href="https://doi.org/10.1344/ara2023.285.41299" target="_blank" class="btn btn-doi">🌐 Ver en Revista</a>
+            </div>
+
+            <div class="project-card">
+                <h3>Fundamentos Metodológicos (2022)</h3>
+                <p>Desarrollo teórico-práctico sobre la interpretación de realidades y gestión del conocimiento.</p>
+                <p style="margin-top: 10px;">DOI: <span class="doi-text">10.1344/ara2022.273.39776</span></p>
+                <a href="https://doi.org/10.1344/ara2022.273.39776" target="_blank" class="btn btn-doi">🌐 Ver en Revista</a>
             </div>
         </section>
 
         <section id="proyectos">
-            <h2>Dashboards Interactivos</h2>
-            
+            <h2>Portafolio Técnico</h2>
             <div class="project-card">
-                <h3>Dashboard de Gestión Financiera</h3>
-                <p>Visualización de KPIs estratégicos para el monitoreo de flujos de caja y rendimiento operativo.</p>
-                <div class="dashboard-container">
-                    <iframe src="https://public.tableau.com/views/TuDashboardEjemplo"></iframe>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <span class="tag" style="background: #e67e22; color: white;">Python</span>
-                <h3>Análisis Predictivo en Google Colab</h3>
-                <p>Desarrollo de modelos de limpieza de datos automatizada y predicción de tendencias mediante Machine Learning.</p>
+                <span class="tag" style="background: #e67e22; color: white;">Google Colab / Python</span>
+                <h3>Notebooks de Procesamiento de Datos</h3>
+                <p>Implementación de scripts para limpieza de datos, análisis estadístico y visualización dinámica.</p>
                 <a href="TU_LINK_DE_COLAB_AQUI" target="_blank" class="btn">
                     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Colab" style="margin-right: 8px;"> 
-                    Ejecutar Código en Vivo
+                    Abrir en Colab
                 </a>
             </div>
         </section>
@@ -195,18 +193,16 @@
         <section id="contacto">
             <h2>Contacto</h2>
             <div class="project-card">
-                <p>Estoy abierto a oportunidades como Analista de Datos Senior o Consultor Estratégico Remoto.</p>
-                <p style="margin-top: 15px;"><strong>📧 Email:</strong> tu-email@ejemplo.com</p>
-                <p style="margin-top: 10px;"><strong>🔗 LinkedIn:</strong> <a href="https://linkedin.com/in/tuperfil" target="_blank" style="color: var(--accent-color); text-decoration: none; font-weight: bold;">linkedin.com/in/tuperfil</a></p>
-                <a href="tu-cv.pdf" class="btn" style="background: #34495e;">Descargar CV (PDF)</a>
+                <p>Disponible para posiciones de Análisis de Datos, Consultoría Financiera e Investigación Estratégica.</p>
+                <p style="margin-top: 15px;"><strong>📧 Email:</strong> jhon.garavito@ejemplo.com</p>
+                <a href="https://linkedin.com/in/tuperfil" target="_blank" class="btn btn-doi">LinkedIn</a>
             </div>
         </section>
 
         <footer style="text-align: center; color: var(--text-light); font-size: 0.8em;">
-            <p>&copy; 2026 Jhon Fredy Garavito Rocha | Portafolio Profesional de Datos</p>
+            <p>&copy; 2026 Jhon Fredy Garavito Rocha | Investigador y Analista de Datos</p>
         </footer>
 
     </main>
-
 </body>
 </html>
