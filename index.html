@@ -281,14 +281,12 @@
     </main>
 <script>
 async function drawRemoteChart() {
-    // URL del dataset en GitHub (Población mundial)
     const remote_url = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv";
 
     try {
         const data = await d3.csv(remote_url);
         d3.select("#loader").remove();
         
-        // Procesamiento de datos: Top 10 países
         const cleanData = data
             .sort((a, b) => b.pop - a.pop)
             .slice(0, 10)
@@ -296,15 +294,19 @@ async function drawRemoteChart() {
 
         const width = 800;
         const height = 400;
-        const margin = {top: 20, right: 30, bottom: 60, left: 120};
+        const margin = {top: 20, right: 50, bottom: 60, left: 120};
+
+        // Crear el Tooltip en el cuerpo del documento
+        const tooltip = d3.select("body").append("div")
+            .attr("class", "d3-tooltip");
 
         const svg = d3.select("#d3-remote-container")
+            .html("") // Limpiar por si acaso
             .append("svg")
             .attr("viewBox", `0 0 ${width} ${height}`)
             .append("g")
             .attr("transform", `translate(${margin.left},${margin.top})`);
 
-        // Escalas
         const x = d3.scaleLinear()
             .domain([0, d3.max(cleanData, d => d.value)])
             .range([0, width - margin.left - margin.right]);
@@ -318,15 +320,13 @@ async function drawRemoteChart() {
         svg.append("g")
             .attr("transform", `translate(0,${height - margin.top - margin.bottom})`)
             .call(d3.axisBottom(x).ticks(5).tickFormat(d3.format(".2s")))
-            .style("font-family", "Inter")
-            .style("color", "#7f8c8d");
+            .style("font-family", "Inter").style("color", "#7f8c8d");
 
         svg.append("g")
             .call(d3.axisLeft(y))
-            .style("font-family", "Inter")
-            .style("color", "#2c3e50");
+            .style("font-family", "Inter").style("color", "#2c3e50");
 
-        // Dibujar Barras
+        // DIBUJAR BARRAS CON INTERACTIVIDAD
         svg.selectAll("rect")
             .data(cleanData)
             .join("rect")
@@ -334,20 +334,64 @@ async function drawRemoteChart() {
             .attr("y", d => y(d.name))
             .attr("width", 0) 
             .attr("height", y.bandwidth())
-            .attr("fill", "#27ae60")
+            .attr("fill", "var(--accent-color)") // Usamos tu color verde
             .attr("rx", 6)
+            .style("cursor", "pointer")
+            // EVENTOS INTERACTIVOS
+            .on("mouseover", function(event, d) {
+                // Efecto visual en la barra
+                d3.select(this)
+                    .transition().duration(200)
+                    .attr("fill", "#219150") // Un verde más oscuro
+                    .attr("height", y.bandwidth() + 4)
+                    .attr("y", y(d.name) - 2);
+
+                // Mostrar Tooltip
+                tooltip.style("opacity", 1)
+                    .html(`<strong>${d.name}</strong><br/>Población: ${d3.format(",")(d.value)}`);
+            })
+            .on("mousemove", function(event) {
+                tooltip.style("left", (event.pageX + 15) + "px")
+                       .style("top", (event.pageY - 28) + "px");
+            })
+            .on("mouseleave", function() {
+                // Revertir efecto visual
+                d3.select(this)
+                    .transition().duration(200)
+                    .attr("fill", "var(--accent-color)")
+                    .attr("height", y.bandwidth())
+                    .attr("y", y(d.name));
+
+                // Ocultar Tooltip
+                tooltip.style("opacity", 0);
+            })
+            // ANIMACIÓN DE ENTRADA
             .transition()
             .duration(1200)
             .attr("width", d => x(d.value))
             .delay((d, i) => i * 100);
+
+        // AÑADIR ETIQUETAS DE TEXTO AL FINAL DE LAS BARRAS
+        svg.selectAll(".label")
+            .data(cleanData)
+            .join("text")
+            .attr("class", "label")
+            .attr("x", d => x(d.value) + 5)
+            .attr("y", d => y(d.name) + y.bandwidth() / 2 + 5)
+            .text(d => d3.format(".2s")(d.value))
+            .style("font-size", "10px")
+            .style("fill", "#7f8c8d")
+            .style("opacity", 0)
+            .transition()
+            .duration(1200)
+            .style("opacity", 1)
+            .delay((d, i) => i * 100 + 1000);
 
     } catch (error) {
         console.error("Error:", error);
         d3.select("#d3-remote-container").html("<p style='color:red;'>Error al cargar datos remotos.</p>");
     }
 }
-
-// Ejecutar la función
 drawRemoteChart();
 </script>
 </body>
