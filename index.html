@@ -20,7 +20,6 @@
         
         body { 
             font-family: 'Inter', sans-serif; 
-            /* Fondo con gradiente moderno */
             background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
             background-attachment: fixed;
             display: flex;
@@ -43,6 +42,7 @@
             align-items: center;
             text-align: center;
             border-right: 1px solid rgba(255,255,255,0.1);
+            z-index: 100;
         }
 
         .profile-img {
@@ -153,13 +153,31 @@
             border-radius: 8px; 
         }
 
+        /* ESTILO CORREGIDO PARA EL TOOLTIP D3 */
+        .d3-tooltip {
+            position: absolute;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            pointer-events: none; /* Crucial para que no bloquee el mouse */
+            font-size: 0.85rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            opacity: 0;
+            z-index: 9999;
+            color: #2c3e50;
+            font-family: 'Inter', sans-serif;
+        }
+
         @media (max-width: 992px) {
             body { flex-direction: column; }
             .sidebar { width: 100%; height: auto; position: relative; padding: 40px 20px; }
             .main-content { margin-left: 0; padding: 40px 20px; }
         }
     </style>
-<script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
 
@@ -171,6 +189,7 @@
         <ul class="nav-menu">
             <li><a href="#about">Sobre Mí</a></li>
             <li><a href="#colab">Visualizaciones Python</a></li>
+            <li><a href="#d3-live">Analítica D3</a></li>
             <li><a href="#publicaciones">Investigaciones</a></li>
             <li><a href="#contacto">Contacto</a></li>
         </ul>
@@ -211,43 +230,25 @@
                     <span class="tag">Pearson Correlation</span><span class="tag">Macroeconomía</span>
                 </div>
             </div>
-
-            <div class="project-card">
-                <h3>Matriz de Correlación Multivariante</h3>
-                <div class="dashboard-wrapper">
-                    <iframe src="matriz_correlacion.html" width="100%" height="500px"></iframe>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <h3>Desarrollo Territorial: Salud vs. Riqueza</h3>
-                <div class="dashboard-wrapper">
-                    <iframe src="analisis_evolutivo_global.html" width="100%" height="600px"></iframe>
-                </div>
-            </div>
         </section>
 
+        <section id="d3-live">
+            <div class="project-card">
+                <span style="text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; color: #27ae60; font-weight: bold;">Data Engineering</span>
+                <h3 style="margin-top: 10px;">Visualización D3.js con Datos Remotos</h3>
+                <p>Análisis dinámico que consume un dataset externo. Esta técnica permite integrar flujos de datos en tiempo real de APIs gubernamentales o corporativas.</p>
+                
+                <div id="d3-remote-container" style="width: 100%; min-height: 400px; margin-top: 20px; background: rgba(255,255,255,0.2); border-radius: 15px; display: flex; align-items: center; justify-content: center;">
+                    <div id="loader" style="color: #7f8c8d; font-style: italic;">Sincronizando con repositorio de datos...</div>
+                </div>
 
-        
-<section id="d3-live">
-    <div class="project-card">
-        <span style="text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; color: #27ae60; font-weight: bold;">Data Engineering</span>
-        <h3 style="margin-top: 10px;">Visualización D3.js con Datos Remotos</h3>
-        <p>Análisis dinámico que consume un dataset externo. Esta técnica permite integrar flujos de datos en tiempo real de APIs gubernamentales o corporativas.</p>
-        
-        <div id="d3-remote-container" style="width: 100%; min-height: 400px; margin-top: 20px; background: rgba(255,255,255,0.2); border-radius: 15px; display: flex; align-items: center; justify-content: center;">
-            <div id="loader" style="color: #7f8c8d; font-style: italic;">Sincronizando con repositorio de datos...</div>
-        </div>
-
-        <div class="tags-container" style="margin-top: 20px;">
-            <span class="tag">D3.js V7</span>
-            <span class="tag">Remote Fetch</span>
-            <span class="tag">Scalable Vector Graphics (SVG)</span>
-        </div>
-    </div>
-</section>     
-
-        
+                <div class="tags-container" style="margin-top: 20px;">
+                    <span class="tag">D3.js V7</span>
+                    <span class="tag">Remote Fetch</span>
+                    <span class="tag">Scalable Vector Graphics (SVG)</span>
+                </div>
+            </div>
+        </section>      
 
         <section id="publicaciones">
             <h2>Investigaciones Indexadas</h2>
@@ -274,125 +275,117 @@
             </div>
         </section>
 
-
-
-
-        
     </main>
+
 <script>
-async function drawRemoteChart() {
-    const remote_url = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv";
+    // 1. Crear el tooltip fuera de la función para evitar duplicados
+    const tooltip = d3.select("body").append("div")
+        .attr("class", "d3-tooltip");
 
-    try {
-        const data = await d3.csv(remote_url);
-        d3.select("#loader").remove();
-        
-        const cleanData = data
-            .sort((a, b) => b.pop - a.pop)
-            .slice(0, 10)
-            .map(d => ({ name: d.name, value: +d.pop }));
+    async function drawRemoteChart() {
+        const remote_url = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv";
 
-        const width = 800;
-        const height = 400;
-        const margin = {top: 20, right: 50, bottom: 60, left: 120};
+        try {
+            const data = await d3.csv(remote_url);
+            d3.select("#loader").remove();
+            
+            const cleanData = data
+                .sort((a, b) => b.pop - a.pop)
+                .slice(0, 10)
+                .map(d => ({ name: d.name, value: +d.pop }));
 
-        // Crear el Tooltip en el cuerpo del documento
-        const tooltip = d3.select("body").append("div")
-            .attr("class", "d3-tooltip");
+            const width = 800;
+            const height = 400;
+            const margin = {top: 20, right: 60, bottom: 60, left: 120};
 
-        const svg = d3.select("#d3-remote-container")
-            .html("") // Limpiar por si acaso
-            .append("svg")
-            .attr("viewBox", `0 0 ${width} ${height}`)
-            .append("g")
-            .attr("transform", `translate(${margin.left},${margin.top})`);
+            // Limpiar contenedor antes de dibujar
+            d3.select("#d3-remote-container").html("");
 
-        const x = d3.scaleLinear()
-            .domain([0, d3.max(cleanData, d => d.value)])
-            .range([0, width - margin.left - margin.right]);
+            const svg = d3.select("#d3-remote-container")
+                .append("svg")
+                .attr("viewBox", `0 0 ${width} ${height}`)
+                .append("g")
+                .attr("transform", `translate(${margin.left},${margin.top})`);
 
-        const y = d3.scaleBand()
-            .range([0, height - margin.top - margin.bottom])
-            .domain(cleanData.map(d => d.name))
-            .padding(.2);
+            const x = d3.scaleLinear()
+                .domain([0, d3.max(cleanData, d => d.value)])
+                .range([0, width - margin.left - margin.right]);
 
-        // Ejes
-        svg.append("g")
-            .attr("transform", `translate(0,${height - margin.top - margin.bottom})`)
-            .call(d3.axisBottom(x).ticks(5).tickFormat(d3.format(".2s")))
-            .style("font-family", "Inter").style("color", "#7f8c8d");
+            const y = d3.scaleBand()
+                .range([0, height - margin.top - margin.bottom])
+                .domain(cleanData.map(d => d.name))
+                .padding(.2);
 
-        svg.append("g")
-            .call(d3.axisLeft(y))
-            .style("font-family", "Inter").style("color", "#2c3e50");
+            // Ejes
+            svg.append("g")
+                .attr("transform", `translate(0,${height - margin.top - margin.bottom})`)
+                .call(d3.axisBottom(x).ticks(5).tickFormat(d3.format(".2s")))
+                .style("font-family", "Inter").style("color", "#7f8c8d");
 
-        // DIBUJAR BARRAS CON INTERACTIVIDAD
-        svg.selectAll("rect")
-            .data(cleanData)
-            .join("rect")
-            .attr("x", x(0))
-            .attr("y", d => y(d.name))
-            .attr("width", 0) 
-            .attr("height", y.bandwidth())
-            .attr("fill", "var(--accent-color)") // Usamos tu color verde
-            .attr("rx", 6)
-            .style("cursor", "pointer")
-            // EVENTOS INTERACTIVOS
-            .on("mouseover", function(event, d) {
-                // Efecto visual en la barra
-                d3.select(this)
-                    .transition().duration(200)
-                    .attr("fill", "#219150") // Un verde más oscuro
-                    .attr("height", y.bandwidth() + 4)
-                    .attr("y", y(d.name) - 2);
+            svg.append("g")
+                .call(d3.axisLeft(y))
+                .style("font-family", "Inter").style("color", "#2c3e50");
 
-                // Mostrar Tooltip
-                tooltip.style("opacity", 1)
-                    .html(`<strong>${d.name}</strong><br/>Población: ${d3.format(",")(d.value)}`);
-            })
-            .on("mousemove", function(event) {
-                tooltip.style("left", (event.pageX + 15) + "px")
-                       .style("top", (event.pageY - 28) + "px");
-            })
-            .on("mouseleave", function() {
-                // Revertir efecto visual
-                d3.select(this)
-                    .transition().duration(200)
-                    .attr("fill", "var(--accent-color)")
-                    .attr("height", y.bandwidth())
-                    .attr("y", y(d.name));
+            // Dibujar Barras
+            svg.selectAll("rect")
+                .data(cleanData)
+                .join("rect")
+                .attr("x", x(0))
+                .attr("y", d => y(d.name))
+                .attr("width", 0) 
+                .attr("height", y.bandwidth())
+                .attr("fill", "var(--accent-color)")
+                .attr("rx", 6)
+                .style("cursor", "pointer")
+                .on("mouseover", function(event, d) {
+                    d3.select(this)
+                        .transition().duration(200)
+                        .attr("fill", "#219150")
+                        .attr("height", y.bandwidth() + 4)
+                        .attr("y", y(d.name) - 2);
 
-                // Ocultar Tooltip
-                tooltip.style("opacity", 0);
-            })
-            // ANIMACIÓN DE ENTRADA
-            .transition()
-            .duration(1200)
-            .attr("width", d => x(d.value))
-            .delay((d, i) => i * 100);
+                    tooltip.style("opacity", 1)
+                        .html(`<strong>${d.name}</strong><br/>${d3.format(",")(d.value)} hab.`);
+                })
+                .on("mousemove", function(event) {
+                    tooltip.style("left", (event.pageX + 15) + "px")
+                           .style("top", (event.pageY - 28) + "px");
+                })
+                .on("mouseleave", function(event, d) {
+                    d3.select(this)
+                        .transition().duration(200)
+                        .attr("fill", "var(--accent-color)")
+                        .attr("height", y.bandwidth())
+                        .attr("y", y(d.name));
 
-        // AÑADIR ETIQUETAS DE TEXTO AL FINAL DE LAS BARRAS
-        svg.selectAll(".label")
-            .data(cleanData)
-            .join("text")
-            .attr("class", "label")
-            .attr("x", d => x(d.value) + 5)
-            .attr("y", d => y(d.name) + y.bandwidth() / 2 + 5)
-            .text(d => d3.format(".2s")(d.value))
-            .style("font-size", "10px")
-            .style("fill", "#7f8c8d")
-            .style("opacity", 0)
-            .transition()
-            .duration(1200)
-            .style("opacity", 1)
-            .delay((d, i) => i * 100 + 1000);
+                    tooltip.style("opacity", 0);
+                })
+                .transition()
+                .duration(1200)
+                .attr("width", d => x(d.value))
+                .delay((d, i) => i * 100);
 
-    } catch (error) {
-        console.error("Error:", error);
-        d3.select("#d3-remote-container").html("<p style='color:red;'>Error al cargar datos remotos.</p>");
+            // Etiquetas de texto
+            svg.selectAll(".label")
+                .data(cleanData)
+                .join("text")
+                .attr("x", d => x(d.value) + 5)
+                .attr("y", d => y(d.name) + y.bandwidth() / 2 + 5)
+                .text(d => d3.format(".2s")(d.value))
+                .style("font-size", "10px")
+                .style("fill", "#7f8c8d")
+                .style("opacity", 0)
+                .transition()
+                .duration(1200)
+                .style("opacity", 1)
+                .delay((d, i) => i * 100 + 1000);
+
+        } catch (error) {
+            console.error("Error:", error);
+            d3.select("#d3-remote-container").html("<p style='color:red;'>Error al conectar con la base de datos externa.</p>");
+        }
     }
-}
-drawRemoteChart();
+    drawRemoteChart();
 </script>
 </body>
 </html>
