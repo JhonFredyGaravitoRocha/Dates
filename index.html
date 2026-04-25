@@ -85,68 +85,50 @@
 <script>
     // --- LÓGICA DE VISUALIZACIÓN ---
 
-    // 1. Gráfico de Petróleo (Ya adaptado de tu Python)
-function renderOilChart() {
-    const trace = {
-        x: ['2024-01', '2024-03', '2024-05', '2024-07'],
-        y: [75, 82, 79, 85],
-        mode: 'lines+markers',
-        line: { color: '#27ae60', width: 3, shape: 'spline' },
-        fill: 'tozeroy',
-        fillcolor: 'rgba(39, 174, 96, 0.1)',
-        name: 'Precio Cierre'
-    };
+    // 1. Gráfico de Petróleo
+    function renderOilChart() {
+        const trace = {
+            x: ['2024-01', '2024-03', '2024-05', '2024-07'],
+            y: [75, 82, 79, 85],
+            mode: 'lines+markers',
+            line: { color: '#27ae60', width: 3, shape: 'spline' },
+            fill: 'tozeroy',
+            fillcolor: 'rgba(39, 174, 96, 0.1)',
+            name: 'Precio Cierre'
+        };
 
-    const layout = {
-        autosize: true, // Esto hace que el gráfico se ajuste a tu div
-        title: { 
-            text: 'Análisis: Precio del Petróleo Brent',
-            font: { size: 16 }
-        },
-        xaxis: { title: 'Fecha', showgrid: false },
-        yaxis: { title: 'Precio (USD)', gridcolor: '#eee' },
-        template: 'plotly_white',
-        hovermode: 'x unified',
-        margin: { t: 40, r: 20, l: 50, b: 40 }, // Márgenes reducidos
-        paper_bgcolor: 'rgba(0,0,0,0)',
-        plot_bgcolor: 'rgba(0,0,0,0)'
-    };
+        const layout = {
+            autosize: true,
+            title: { text: 'Análisis: Precio del Petróleo Brent', font: { size: 16 } },
+            xaxis: { title: 'Fecha', showgrid: false },
+            yaxis: { title: 'Precio (USD)', gridcolor: '#eee' },
+            template: 'plotly_white',
+            hovermode: 'x unified',
+            margin: { t: 40, r: 20, l: 50, b: 40 },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)'
+        };
 
-    // La clave está en este objeto 'config'
-    const config = {
-        responsive: true,       // Hace que redimensione con la ventana
-        displayModeBar: true,   // Habilita la barra de interactividad (zoom, etc)
-        displaylogo: false      // Elimina el logo de Plotly para un look profesional
-    };
+        const config = { responsive: true, displayModeBar: true, displaylogo: false };
 
-    Plotly.newPlot('oil-plot', [trace], layout, config);
-}
+        Plotly.newPlot('oil-plot', [trace], layout, config);
+    }
 
-    // 3. Configuración para que sea responsivo
-    const config = {
-        responsive: true,
-        displayModeBar: false // Oculta la barra de herramientas si no es necesaria
-    };
-
-    Plotly.newPlot('oil-plot', [trace], layout, config);
-}
-
-    // 2. Aquí irán tus siguientes gráficos (Solo copia tu lógica aquí)
+    // 2. Funciones para tus otros gráficos
     function renderCorrelationChart() {
-        // Pega aquí tu código Plotly.js para la correlación
         console.log("Cargando Correlación...");
     }
 
     function renderMatrixChart() {
-        // Pega aquí tu lógica
+        console.log("Cargando Matriz...");
     }
 
     function renderGapminderChart() {
-        // Pega aquí tu lógica
+        console.log("Cargando Gapminder...");
     }
 
     function renderGdpChart() {
-        // Pega aquí tu lógica
+        console.log("Cargando PIB...");
     }
 
     // --- EJECUCIÓN AL CARGAR LA PÁGINA ---
