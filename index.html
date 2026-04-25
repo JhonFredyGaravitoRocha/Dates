@@ -2,143 +2,52 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jhon Fredy Garavito | Data Analyst & Research</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <title>Jhon Fredy Garavito | Portfolio</title>
     <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
-
     <style>
-        :root {
-            --sidebar-width: 320px;
-            --primary-color: #2c3e50;
-            --accent-color: #27ae60;
-            --glass-bg: rgba(255, 255, 255, 0.7);
-            --text-main: #2d3436;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%); display: flex; color: var(--text-main); min-height: 100vh; }
-
-        /* Sidebar */
-        .sidebar { width: var(--sidebar-width); height: 100vh; background: rgba(44, 62, 80, 0.9); color: white; padding: 40px 30px; position: fixed; }
-        .profile-img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; margin-bottom: 20px; border: 3px solid rgba(255,255,255,0.2); }
-        .nav-menu { list-style: none; margin-top: 30px; }
-        .nav-menu a { color: rgba(255,255,255,0.7); text-decoration: none; display: block; padding: 12px; transition: 0.3s; }
-        .nav-menu a:hover { color: white; background: rgba(255,255,255,0.1); border-radius: 8px; }
-
-        /* Contenido */
-        .main-content { margin-left: var(--sidebar-width); padding: 60px; width: 100%; }
-        .project-card { background: var(--glass-bg); padding: 40px; border-radius: 24px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .dashboard-wrapper { background: rgba(255,255,255,0.4); border-radius: 18px; margin-top: 25px; min-height: 400px; display: flex; align-items: center; justify-content: center; }
-        
-        @media (max-width: 992px) {
-            body { flex-direction: column; }
-            .sidebar { width: 100%; height: auto; position: relative; }
-            .main-content { margin-left: 0; }
-        }
+        body { font-family: sans-serif; padding: 20px; background: #f4f7f6; }
+        .project-card { background: white; padding: 20px; margin-bottom: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h3 { margin-bottom: 15px; color: #333; }
+        /* Sin más clases complejas de contenedor */
     </style>
 </head>
 <body>
 
-    <nav class="sidebar">
-        <img src="foto-jhon.jpg" alt="Jhon" class="profile-img">
-        <h1>Jhon Fredy Garavito</h1>
-        <ul class="nav-menu">
-            <li><a href="#oil-chart">Petróleo Brent</a></li>
-            <li><a href="#correlation-chart">Correlación</a></li>
-            <li><a href="#matrix-chart">Matriz Multivariante</a></li>
-            <li><a href="#gapminder-chart">Gapminder</a></li>
-            <li><a href="#gdp-chart">PIB Global</a></li>
-        </ul>
-    </nav>
+    <section class="project-card">
+        <h3>Tendencias del Petróleo Brent</h3>
+        <div id="oil-plot" style="width:100%; height:400px;"></div>
+    </section>
 
-    <main class="main-content">
-        <section id="oil-chart" class="project-card">
-            <h3>Tendencias del Petróleo Brent</h3>
-            <div class="dashboard-wrapper" id="oil-plot"></div>
-        </section>
+    <section class="project-card">
+        <h3>Interdependencia: Petróleo vs. Dólar</h3>
+        <div id="correlation-plot" style="width:100%; height:400px;"></div>
+    </section>
 
-        <section id="correlation-chart" class="project-card">
-            <h3>Interdependencia: Petróleo vs. Dólar</h3>
-            <div class="dashboard-wrapper" id="correlation-plot"></div>
-        </section>
+    <script>
+        function renderOilChart() {
+            const trace = {
+                x: ['2024-01', '2024-03', '2024-05', '2024-07'],
+                y: [75, 82, 79, 85],
+                mode: 'lines+markers',
+                line: { color: '#27ae60', width: 3, shape: 'spline' },
+                fill: 'tozeroy',
+                fillcolor: 'rgba(39, 174, 96, 0.1)'
+            };
 
-        <section id="matrix-chart" class="project-card">
-            <h3>Matriz de Correlación</h3>
-            <div class="dashboard-wrapper" id="matrix-plot"></div>
-        </section>
+            const layout = {
+                title: 'Precio del Petróleo',
+                margin: { t: 30, r: 20, l: 50, b: 40 },
+                hovermode: 'x unified'
+            };
 
-        <section id="gapminder-chart" class="project-card">
-            <h3>Trayectorias Globales</h3>
-            <div class="dashboard-wrapper" id="gapminder-plot"></div>
-        </section>
+            Plotly.newPlot('oil-plot', [trace], layout, {responsive: true, displaylogo: false});
+        }
 
-        <section id="gdp-chart" class="project-card">
-            <h3>Evolución Transversal del PIB</h3>
-            <div class="dashboard-wrapper" id="gdp-plot"></div>
-        </section>
-    </main>
-
-<script>
-    // --- LÓGICA DE VISUALIZACIÓN ---
-
-    // 1. Gráfico de Petróleo
-    function renderOilChart() {
-        const trace = {
-            x: ['2024-01', '2024-03', '2024-05', '2024-07'],
-            y: [75, 82, 79, 85],
-            mode: 'lines+markers',
-            line: { color: '#27ae60', width: 3, shape: 'spline' },
-            fill: 'tozeroy',
-            fillcolor: 'rgba(39, 174, 96, 0.1)',
-            name: 'Precio Cierre'
-        };
-
-        const layout = {
-            autosize: true,
-            title: { text: 'Análisis: Precio del Petróleo Brent', font: { size: 16 } },
-            xaxis: { title: 'Fecha', showgrid: false },
-            yaxis: { title: 'Precio (USD)', gridcolor: '#eee' },
-            template: 'plotly_white',
-            hovermode: 'x unified',
-            margin: { t: 40, r: 20, l: 50, b: 40 },
-            paper_bgcolor: 'rgba(0,0,0,0)',
-            plot_bgcolor: 'rgba(0,0,0,0)'
-        };
-
-        const config = { responsive: true, displayModeBar: true, displaylogo: false };
-
-        Plotly.newPlot('oil-plot', [trace], layout, config);
-    }
-
-    // 2. Funciones para tus otros gráficos
-    function renderCorrelationChart() {
-        console.log("Cargando Correlación...");
-    }
-
-    function renderMatrixChart() {
-        console.log("Cargando Matriz...");
-    }
-
-    function renderGapminderChart() {
-        console.log("Cargando Gapminder...");
-    }
-
-    function renderGdpChart() {
-        console.log("Cargando PIB...");
-    }
-
-    // --- EJECUCIÓN AL CARGAR LA PÁGINA ---
-    document.addEventListener("DOMContentLoaded", () => {
-        renderOilChart();
-        renderCorrelationChart();
-        renderMatrixChart();
-        renderGapminderChart();
-        renderGdpChart();
-    });
-</script>
+        // Ejecutar
+        document.addEventListener("DOMContentLoaded", () => {
+            renderOilChart();
+            // Aquí puedes llamar a tus otras funciones...
+        });
+    </script>
 </body>
 </html>
