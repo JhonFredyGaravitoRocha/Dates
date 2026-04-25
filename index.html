@@ -86,15 +86,52 @@
     // --- LÓGICA DE VISUALIZACIÓN ---
 
     // 1. Gráfico de Petróleo (Ya adaptado de tu Python)
-    function renderOilChart() {
-        const trace = {
-            x: ['2024-01', '2024-03', '2024-05', '2024-07'], // Ejemplo de datos
-            y: [75, 82, 79, 85],
-            mode: 'lines',
-            line: { color: '#27ae60', width: 3 }
-        };
-        Plotly.newPlot('oil-plot', [trace], { title: 'Precio Petróleo Brent' });
-    }
+function renderOilChart() {
+    // 1. Datos (Trace) - Añadimos 'spline' para suavizar y 'fill' para el área
+    const trace = {
+        x: ['2024-01', '2024-03', '2024-05', '2024-07'],
+        y: [75, 82, 79, 85],
+        mode: 'lines+markers', // Añadimos marcadores para ver los puntos
+        line: { 
+            color: '#27ae60', 
+            width: 3,
+            shape: 'spline' // Suaviza la curva
+        },
+        fill: 'tozeroy', // Rellena el área inferior
+        fillcolor: 'rgba(39, 174, 96, 0.1)',
+        name: 'Precio Cierre'
+    };
+
+    // 2. Layout profesional
+    const layout = {
+        title: { 
+            text: 'Análisis: Precio del Petróleo Brent',
+            font: { family: 'Inter, sans-serif', size: 16 }
+        },
+        xaxis: { 
+            title: 'Fecha',
+            gridcolor: '#e1e1e1',
+            showgrid: true
+        },
+        yaxis: { 
+            title: 'Precio USD por Barril',
+            gridcolor: '#e1e1e1'
+        },
+        template: 'plotly_white', // El tema limpio de Plotly
+        hovermode: 'x unified',   // Modo "hover" unificado igual que en Python
+        margin: { t: 50, r: 20, l: 60, b: 50 },
+        paper_bgcolor: 'rgba(0,0,0,0)', // Fondo transparente
+        plot_bgcolor: 'rgba(0,0,0,0)'
+    };
+
+    // 3. Configuración para que sea responsivo
+    const config = {
+        responsive: true,
+        displayModeBar: false // Oculta la barra de herramientas si no es necesaria
+    };
+
+    Plotly.newPlot('oil-plot', [trace], layout, config);
+}
 
     // 2. Aquí irán tus siguientes gráficos (Solo copia tu lógica aquí)
     function renderCorrelationChart() {
