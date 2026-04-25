@@ -2,52 +2,103 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Jhon Fredy Garavito | Portfolio</title>
-    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jhon Fredy Garavito | Data Analyst & Research</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
     <style>
-        body { font-family: sans-serif; padding: 20px; background: #f4f7f6; }
-        .project-card { background: white; padding: 20px; margin-bottom: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h3 { margin-bottom: 15px; color: #333; }
-        /* Sin más clases complejas de contenedor */
+        :root {
+            --sidebar-width: 320px;
+            --primary-color: #2c3e50;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --text-main: #2d3436;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%); display: flex; color: var(--text-main); min-height: 100vh; }
+
+        /* Sidebar Glassmorphism */
+        .sidebar { width: var(--sidebar-width); height: 100vh; background: rgba(44, 62, 80, 0.9); color: white; padding: 40px 30px; position: fixed; box-shadow: 5px 0 15px rgba(0,0,0,0.1); }
+        .profile-img { width: 140px; height: 140px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.2); margin-bottom: 20px; object-fit: cover; }
+        .nav-menu { list-style: none; margin-top: 30px; }
+        .nav-menu a { color: rgba(255,255,255,0.7); text-decoration: none; display: block; padding: 12px; transition: 0.3s; }
+        .nav-menu a:hover { color: white; background: rgba(255,255,255,0.1); border-radius: 8px; transform: translateX(5px); }
+
+        /* Main Content */
+        .main-content { margin-left: var(--sidebar-width); padding: 60px; width: 100%; }
+        .project-card { background: var(--glass-bg); padding: 40px; border-radius: 24px; margin-bottom: 40px; border: 1px solid var(--glass-border); box-shadow: 0 10px 30px rgba(0,0,0,0.05); backdrop-filter: blur(10px); }
+
+        /* ESTILO INTEGRADO PARA LOS IFRAMES */
+        .dashboard-wrapper { 
+            background: rgba(255, 255, 255, 0.3); 
+            border-radius: 18px; 
+            margin-top: 25px; 
+            overflow: hidden; /* Importante para que el iframe no se salga de las esquinas */
+            border: 1px solid rgba(0,0,0,0.05);
+            height: 450px; 
+        }
+        
+        .dashboard-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none; /* Elimina bordes feos del iframe */
+            display: block;
+        }
+
+        @media (max-width: 992px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; padding: 20px; }
+            .main-content { margin-left: 0; padding: 20px; }
+        }
     </style>
 </head>
 <body>
 
-    <section class="project-card">
-        <h3>Tendencias del Petróleo Brent</h3>
-        <div id="oil-plot" style="width:100%; height:400px;"></div>
-    </section>
+    <nav class="sidebar">
+        <img src="foto-jhon.jpg" alt="Jhon Fredy Garavito" class="profile-img">
+        <h1>Jhon Fredy Garavito</h1>
+        <ul class="nav-menu">
+            <li><a href="#about">Sobre Mí</a></li>
+            <li><a href="#colab">Ciencia de Datos</a></li>
+            <li><a href="#d3-live">Analítica D3</a></li>
+            <li><a href="#publicaciones">Investigaciones</a></li>
+        </ul>
+    </nav>
 
-    <section class="project-card">
-        <h3>Interdependencia: Petróleo vs. Dólar</h3>
-        <div id="correlation-plot" style="width:100%; height:400px;"></div>
-    </section>
+    <main class="main-content">
+        <section id="colab">
+            <h2>Ciencia de Datos Aplicada</h2>
+            
+            <div class="project-card">
+                <h3>Tendencias del Petróleo Brent</h3>
+                <div class="dashboard-wrapper">
+                    <iframe src="petroleo_grafico.html"></iframe>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>Interdependencia: Petróleo vs. Dólar (DXY)</h3>
+                <div class="dashboard-wrapper">
+                    <iframe src="correlacion_petroleo_dolar.html"></iframe>
+                </div>
+            </div>
+            
+            </section>
+
+        <section id="d3-live" class="project-card">
+            <h3>Visualización D3.js Dinámica</h3>
+            <div id="d3-remote-container" class="dashboard-wrapper" style="display: flex; align-items: center; justify-content: center;">
+                <div id="loader">Sincronizando con repositorio...</div>
+            </div>
+        </section>
+    </main>
 
     <script>
-        function renderOilChart() {
-            const trace = {
-                x: ['2024-01', '2024-03', '2024-05', '2024-07'],
-                y: [75, 82, 79, 85],
-                mode: 'lines+markers',
-                line: { color: '#27ae60', width: 3, shape: 'spline' },
-                fill: 'tozeroy',
-                fillcolor: 'rgba(39, 174, 96, 0.1)'
-            };
-
-            const layout = {
-                title: 'Precio del Petróleo',
-                margin: { t: 30, r: 20, l: 50, b: 40 },
-                hovermode: 'x unified'
-            };
-
-            Plotly.newPlot('oil-plot', [trace], layout, {responsive: true, displaylogo: false});
-        }
-
-        // Ejecutar
-        document.addEventListener("DOMContentLoaded", () => {
-            renderOilChart();
-            // Aquí puedes llamar a tus otras funciones...
-        });
+        // Tu script de D3 sigue funcionando igual aquí abajo
+        const tooltip = d3.select("body").append("div").attr("class", "d3-tooltip");
+        // ... (resto de tu código D3)
     </script>
 </body>
 </html>
