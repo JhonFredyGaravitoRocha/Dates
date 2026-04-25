@@ -18,325 +18,69 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
-        
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
-            background-attachment: fixed;
-            display: flex;
-            color: var(--text-main);
-            min-height: 100vh;
-        }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%); background-attachment: fixed; display: flex; color: var(--text-main); min-height: 100vh; }
 
         /* BARRA LATERAL */
-        .sidebar {
-            width: var(--sidebar-width);
-            height: 100vh;
-            background: rgba(44, 62, 80, 0.9);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            color: white;
-            padding: 40px 30px;
-            position: fixed;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border-right: 1px solid rgba(255,255,255,0.1);
-            z-index: 100;
-        }
+        .sidebar { width: var(--sidebar-width); height: 100vh; background: rgba(44, 62, 80, 0.9); color: white; padding: 40px 30px; position: fixed; border-right: 1px solid rgba(255,255,255,0.1); z-index: 100; }
+        .profile-img { width: 140px; height: 140px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.2); margin-bottom: 20px; object-fit: cover; }
+        .nav-menu { list-style: none; margin-top: 30px; }
+        .nav-menu a { color: rgba(255,255,255,0.7); text-decoration: none; display: block; padding: 12px; transition: 0.3s; }
+        .nav-menu a:hover { color: white; background: rgba(255,255,255,0.1); border-radius: 8px; }
 
-        .profile-img {
-            width: 140px; height: 140px;
-            border-radius: 50%;
-            border: 3px solid rgba(255,255,255,0.2);
-            margin-bottom: 20px;
-            object-fit: cover;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
+        /* CONTENIDO */
+        .main-content { margin-left: var(--sidebar-width); padding: 60px; width: 100%; }
+        .project-card { background: var(--glass-bg); padding: 40px; border-radius: 24px; margin-bottom: 40px; border: 1px solid var(--glass-border); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
 
-        .sidebar h1 { font-size: 1.4em; font-weight: 600; margin-bottom: 10px; }
-        .sidebar .description { font-size: 0.85em; opacity: 0.8; margin-bottom: 30px; font-weight: 300; line-height: 1.4; }
+        /* OPTIMIZACIÓN MÓVIL: DASHBOARD */
+        .dashboard-wrapper { background: rgba(255,255,255,0.5); border-radius: 18px; margin-top: 20px; height: 450px; overflow: hidden; border: 1px solid rgba(0,0,0,0.05); }
+        .dashboard-wrapper iframe { width: 100%; height: 100%; border: none; }
 
-        .nav-menu { width: 100%; list-style: none; }
-        .nav-menu a {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            font-size: 0.9em;
-            display: block;
-            padding: 12px;
-            border-radius: 12px;
-            transition: 0.3s;
-            margin-bottom: 5px;
-        }
-        .nav-menu a:hover { 
-            background: rgba(255,255,255,0.1); 
-            color: white; 
-            transform: translateX(8px);
-        }
-
-        /* CONTENIDO PRINCIPAL */
-        .main-content {
-            margin-left: var(--sidebar-width);
-            padding: 60px;
-            width: 100%;
-        }
-
-        h2 { 
-            font-weight: 600; font-size: 2em;
-            margin-bottom: 30px; color: var(--primary-color);
-            letter-spacing: -1px;
-        }
-
-        .project-card { 
-            background: var(--glass-bg); 
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            padding: 40px; 
-            border-radius: 24px; 
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05); 
-            margin-bottom: 40px; 
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        .dashboard-wrapper {
-            background: rgba(255,255,255,0.5);
-            border-radius: 20px;
-            overflow: hidden;
-            margin-top: 25px;
-            border: 1px solid rgba(0,0,0,0.03);
-            line-height: 0;
-        }
-
-        .dashboard-wrapper iframe {
-            border: none;
-            width: 100%;
-        }
-
-        .tag { 
-            background: rgba(44, 62, 80, 0.05); 
-            padding: 6px 14px; 
-            border-radius: 30px; 
-            font-size: 0.75em; font-weight: 600; 
-            color: var(--primary-color); 
-            margin: 0 8px 8px 0;
-            display: inline-block;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-        
-        .btn { 
-            display: inline-flex;
-            align-items: center;
-            background: var(--primary-color); 
-            color: white; 
-            padding: 12px 28px; 
-            text-decoration: none; 
-            border-radius: 14px; 
-            font-size: 0.9em; font-weight: 600;
-            transition: 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background: #34495e;
-            transform: scale(1.02);
-        }
-
-        .doi-text { 
-            font-weight: 600; color: var(--accent-color); 
-            background: rgba(39, 174, 96, 0.1); 
-            padding: 6px 12px; border-radius: 8px;
-            font-size: 0.85em; transition: 0.3s;
-        }
-
-        .d3-tooltip {
-            position: absolute; padding: 12px;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(0,0,0,0.1);
-            border-radius: 12px;
-            pointer-events: none; font-size: 0.85rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            opacity: 0; z-index: 9999; color: #2c3e50;
-        }
-
+        /* RESPONSIVIDAD MÓVIL */
         @media (max-width: 992px) {
             body { flex-direction: column; }
-            .sidebar { width: 100%; height: auto; position: relative; padding: 40px 20px; }
-            .main-content { margin-left: 0; padding: 30px 20px; }
+            .sidebar { width: 100%; height: auto; position: relative; padding: 30px 20px; }
+            .main-content { margin-left: 0; padding: 20px; }
+            .project-card { padding: 20px; margin-bottom: 20px; }
+            h2 { font-size: 1.5em; margin-bottom: 15px; }
+            
+            /* Gráficos más compactos en móvil */
+            .dashboard-wrapper { height: 300px; margin-top: 15px; }
         }
     </style>
 </head>
 <body>
 
     <nav class="sidebar">
-        <img src="foto-jhon.jpg" alt="Jhon Fredy Garavito" class="profile-img">
+        <img src="foto-jhon.jpg" alt="Jhon" class="profile-img">
         <h1>Jhon Fredy Garavito</h1>
-        <p class="description">Administrador Público | Analista de Datos<br>Especialista en Desarrollo | Investigador</p>
         <ul class="nav-menu">
             <li><a href="#about">Sobre Mí</a></li>
-            <li><a href="#colab">Visualizaciones Python</a></li>
+            <li><a href="#colab">Ciencia de Datos</a></li>
             <li><a href="#d3-live">Analítica D3</a></li>
             <li><a href="#publicaciones">Investigaciones</a></li>
-            <li><a href="#contacto">Contacto</a></li>
         </ul>
     </nav>
 
     <main class="main-content">
-        <section id="about">
-            <div class="project-card" style="border-top: 4px solid var(--accent-color);">
-                <h2>Perfil Profesional</h2>
-                <p style="font-size: 1.1em; line-height: 1.8; color: #444;">Administrador Público, Magíster en Desarrollo Territorial e Investigador especializado en análisis cuantitativo avanzado. Experto en la síntesis de datos multidimensionales para la resolución de problemas financieros y territoriales.</p>
-                <div style="margin-top: 25px;">
-                    <span class="tag">SQL</span> <span class="tag">Python</span> <span class="tag">Análisis Territorial</span> <span class="tag">Gestión Pública</span>
-                </div>
-            </div>
-        </section>
-     
         <section id="colab">
             <h2>Ciencia de Datos Aplicada</h2>
             
             <div class="project-card">
                 <h3>Tendencias del Petróleo Brent</h3>
-                <p>Análisis en tiempo real con medias móviles para detección de señales de mercado.</p>
                 <div class="dashboard-wrapper">
-                    <iframe src="petroleo_grafico.html" height="450px"></iframe>
-                </div>
-                <div style="margin-top: 20px;">
-                    <a href="https://colab.research.google.com/drive/1164hU-19gbpmr193bEOFx6-Yvsievml1?usp=sharing" target="_blank" class="btn">🚀 Abrir Notebook Colab</a>
+                    <iframe src="petroleo_grafico.html" scrolling="yes"></iframe>
                 </div>
             </div>
 
-            <div class="project-card" style="border-left: 5px solid #2980b9;">
-                <h3>Interdependencia: Petróleo Brent vs. Dólar (DXY)</h3>
-                <p>Estudio de la relación inversa entre el valor del dólar y el precio de los commodities.</p>
-                <div class="dashboard-wrapper">
-                    <iframe src="correlacion_petroleo_dolar.html" height="450px"></iframe>
-                </div>
-                <div style="margin-top: 15px;">
-                    <span class="tag" style="background: #2980b9; color: white;">Pearson Correlation</span>
-                    <span class="tag">Multivariate Analysis</span>
-                </div>
-            </div>
-
-            <div class="project-card" style="border-left: 5px solid #8e44ad;">
-                <h3>Matriz de Correlación Multivariante</h3>
-                <p>Identificación de sinergias y riesgos compartidos entre activos clave.</p>
-                <div class="dashboard-wrapper">
-                    <iframe src="matriz_correlacion.html" height="450px"></iframe>
-                </div>
-            </div>
-
-            <div class="project-card" style="border-left: 5px solid #c0392b;">
-                <h3>Salud vs. Riqueza: Trayectorias Globales</h3>
-                <p>Visualización interactiva basada en Gapminder para observar la evolución de las naciones.</p>
-                <div class="dashboard-wrapper">
-                    <iframe src="analisis_evolutivo_global.html" height="550px"></iframe>
-                </div>
-            </div>
-
-            <div class="project-card" style="border-left: 5px solid var(--primary-color);">
-                <h3>Evolución Transversal del PIB</h3>
-                <p>Análisis cartográfico animado de ciclos de crecimiento y disparidades geográficas.</p>
-                <div class="dashboard-wrapper">
-                    <iframe src="dinamica_global_pib.html" height="550px"></iframe>
-                </div>
-            </div>
-        </section>
-
-        <section id="d3-live">
             <div class="project-card">
-                <span style="text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; color: #27ae60; font-weight: bold;">Data Engineering</span>
-                <h3 style="margin-top: 10px;">Visualización D3.js Dinámica</h3>
-                <p>Consumo de datos remotos vía API para flujos de información en tiempo real.</p>
-                <div id="d3-remote-container" style="width: 100%; min-height: 400px; margin-top: 20px; background: rgba(255,255,255,0.3); border-radius: 20px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-                    <div id="loader">Sincronizando datos...</div>
+                <h3>Interdependencia: Petróleo vs. Dólar</h3>
+                <div class="dashboard-wrapper">
+                    <iframe src="correlacion_petroleo_dolar.html" scrolling="yes"></iframe>
                 </div>
             </div>
-        </section>      
-
-        <section id="publicaciones">
-            <h2>Investigaciones Indexadas</h2>
-            <div class="project-card">
-                <ul style="list-style: none;">
-                    <li style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid rgba(0,0,0,0.05);">
-                        <strong style="display:block; font-size: 1.1em; margin-bottom: 10px;">Soberanía sin router: disuasión autodestructiva</strong>
-                        <a href="https://doi.org/10.1344/ara2026.313.51512" target="_blank" style="text-decoration: none;">
-                            <span class="doi-text">DOI: 10.1344/ara2026.313.51512 🔗</span>
-                        </a>
-                    </li>
-                    <li style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid rgba(0,0,0,0.05);">
-                        <strong style="display:block; font-size: 1.1em; margin-bottom: 10px;">Tensiones entre campesinos y empresarios: Amazonía 2011-2021</strong>
-                        <a href="https://doi.org/10.1344/ara2023.285.41299" target="_blank" style="text-decoration: none;">
-                            <span class="doi-text">DOI: 10.1344/ara2023.285.41299 🔗</span>
-                        </a>
-                    </li>
-                    <li>
-                        <strong style="display:block; font-size: 1.1em; margin-bottom: 10px;">Policarpa Salavarrieta y la Central Nacional Provivienda</strong>
-                        <a href="https://doi.org/10.1344/ara2022.273.39776" target="_blank" style="text-decoration: none;">
-                            <span class="doi-text">DOI: 10.1344/ara2022.273.39776 🔗</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-        <section id="contacto">
-            <div class="project-card" style="text-align: center; background: rgba(44, 62, 80, 0.05); border: 2px dashed rgba(44,62,80,0.1);">
-                <h3>¿Hablamos?</h3>
-                <p style="margin: 15px 0;">Disponible para proyectos de Análisis de Datos y Consultoría Territorial.</p>
-                <p style="font-size: 1.2em; font-weight: 600; margin-bottom: 25px;">📧 JhonGaravito@esap.edu.co</p>
-                <a href="https://www.linkedin.com/in/jhon-garavito/" target="_blank" class="btn">Conectar en LinkedIn</a>
-            </div>
-        </section>
-    </main>
-
-<script>
-    const tooltip = d3.select("body").append("div").attr("class", "d3-tooltip");
-
-    async function drawRemoteChart() {
-        const url = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv";
-        try {
-            const data = await d3.csv(url);
-            d3.select("#loader").remove();
-            const cleanData = data.sort((a,b) => b.pop - a.pop).slice(0,10).map(d => ({name: d.name, value: +d.pop}));
             
-            const width = 800, height = 400, margin = {top: 20, right: 60, bottom: 60, left: 120};
-            d3.select("#d3-remote-container").html("");
-            const svg = d3.select("#d3-remote-container").append("svg")
-                .attr("viewBox", `0 0 ${width} ${height}`)
-                .append("g").attr("transform", `translate(${margin.left},${margin.top})`);
-
-            const x = d3.scaleLinear().domain([0, d3.max(cleanData, d => d.value)]).range([0, width - margin.left - margin.right]);
-            const y = d3.scaleBand().range([0, height - margin.top - margin.bottom]).domain(cleanData.map(d => d.name)).padding(.2);
-
-            svg.append("g").attr("transform", `translate(0,${height - margin.top - margin.bottom})`)
-                .call(d3.axisBottom(x).ticks(5).tickFormat(d3.format(".2s"))).style("color", "#7f8c8d");
-            svg.append("g").call(d3.axisLeft(y)).style("color", "#2c3e50");
-
-            svg.selectAll("rect").data(cleanData).join("rect")
-                .attr("x", x(0)).attr("y", d => y(d.name)).attr("width", 0).attr("height", y.bandwidth())
-                .attr("fill", "var(--accent-color)").attr("rx", 6).style("cursor", "pointer")
-                .on("mouseover", function(event, d) {
-                    d3.select(this).transition().duration(200).attr("fill", "#219150");
-                    tooltip.style("opacity", 1).html(`<strong>${d.name}</strong><br/>${d3.format(",")(d.value)} hab.`);
-                })
-                .on("mousemove", (event) => tooltip.style("left", (event.pageX + 15) + "px").style("top", (event.pageY - 28) + "px"))
-                .on("mouseleave", function() {
-                    d3.select(this).transition().duration(200).attr("fill", "var(--accent-color)");
-                    tooltip.style("opacity", 0);
-                })
-                .transition().duration(1200).attr("width", d => x(d.value)).delay((d,i) => i*100);
-
-        } catch (e) { d3.select("#d3-remote-container").html("Error al sincronizar datos."); }
-    }
-    drawRemoteChart();
-</script>
+            </section>
+        
+        </main>
 </body>
 </html>
